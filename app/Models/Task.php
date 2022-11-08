@@ -19,4 +19,19 @@ class Task extends Model
         'responsible_id',
         'filed',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function priority()
+    {
+        return $this->belongsTo(Priority::class);
+    }
+
+    public function responsible()
+    {
+        return $this->belongsTo(Responsible::class);
+    }
 }
