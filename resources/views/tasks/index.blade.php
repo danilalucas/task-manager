@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
 <div class="container">
@@ -10,37 +10,41 @@
             </figcaption>
 
             <form class="mb-4 border-2 border-bottom border-primary">
-                <div class="col-sm-12 mb-3">
-                    <label for="staticEmail2" class="visually-hidden">Email</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="pesquisar por título">
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="pesquisar por título">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <label for="inputPassword2" class="visually-hidden">Password</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                        <div class="form-group">
+                            <select class="form-control" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-sm-3">
-                        <label for="inputPassword2" class="visually-hidden">Password</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                        <div class="form-group">
+                            <select class="form-control" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-sm-4">
-                        <label for="inputPassword2" class="visually-hidden">Password</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                        <div class="form-group">
+                            <select class="form-control" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-primary mb-3 col-sm-12">Pesquisar</button>
