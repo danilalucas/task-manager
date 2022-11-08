@@ -22,8 +22,11 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
+        $priorities = Priority::all();
+        $groups = Group::all();
+        $responsibles = Responsible::all();
         
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'priorities', 'groups', 'responsibles'));
     }
 
     /**
