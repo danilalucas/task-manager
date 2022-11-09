@@ -57,21 +57,6 @@
                 </div>
                 <div class="mb-3 row">
                     <div class="col">
-                        <label for="daedline" class="form-label">Data de Finalização</label>
-                        <input type="date" class="form-control" id="deadline" name="deadline" value="{{ old('deadline') }}">
-                    </div>
-                    <div class="col">
-                        <label for="priority_id" class="form-label">Prioridade</label>
-                        <select class="form-control" name="priority_id">
-                            <option value="" @if(!old('priority_id')) selected @endif >Selecione a prioridade</option>
-                            @foreach($priorities as $priority)
-                                <option value="{{ $priority->id }}" @if(old('priority_id') == $priority->id) selected @endif >{{ $priority->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col">
                         <label for="group_id" class="form-label">Grupo</label>
                         <select class="form-control" name="group_id">
                             <option value="" @if(!old('group_id')) selected @endif >Selecione o grupo</option>
@@ -88,6 +73,33 @@
                                 <option value="{{ $responsible->id }}" @if(old('responsible_id') == $responsible->id) selected @endif >{{ $responsible->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="daedline" class="form-label">Data de Finalização</label>
+                        <input type="date" class="form-control" id="deadline" name="deadline" value="{{ old('deadline') }}">
+                    </div>
+                    <div class="col">
+                        <label for="priority_id" class="form-label">Prioridade</label>
+                        <select class="form-control" name="priority_id">
+                            <option value="" @if(!old('priority_id')) selected @endif >Selecione a prioridade</option>
+                            @foreach($priorities as $priority)
+                                <option value="{{ $priority->id }}" @if(old('priority_id') == $priority->id) selected @endif >{{ $priority->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="status_id" class="form-label">Status *</label>
+                        <select class="form-control" name="status_id">
+                            <option value="" @if(!old('status_id')) selected @endif >Selecione o status</option>
+                            @foreach($status as $status_option)
+                                <option value="{{ $status_option->id }}" @if(old('status_id') == $status_option->id) selected @endif >{{ $status_option->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('status_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Models\Group;
 use App\Models\Priority;
 use App\Models\Responsible;
+use App\Models\Status;
 use App\Models\Task;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,14 +20,37 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();
         $priorities = Priority::all();
         $groups = Group::all();
         $responsibles = Responsible::all();
+        $status = Status::all();
+
+        $search = $request->all();
+
+        if(empty($search)) {
+            $tasks = Task::paginate();
+        }else {
+            $query = Task::query();
+            $terms = $request->only('group_id', 'responsible_id', 'priority_id', 'status_id');
+            foreach ($terms as $name => $value) {
+                if ($value) { 
+                    $query->where($name, '=', $value);
+                }
+            }
+
+            $terms_like = $request->only('title');
+            foreach ($terms_like as $name => $value) {
+                if ($value) { 
+                    $query->where($name, 'LIKE', '%' . $value . '%');
+                }
+            }
+
+            $tasks = $query->paginate();
+        }
         
-        return view('tasks.index', compact('tasks', 'priorities', 'groups', 'responsibles'));
+        return view('tasks.index', compact('tasks', 'priorities', 'groups', 'responsibles', 'status', 'search'));
     }
 
     /**
@@ -39,8 +63,9 @@ class TaskController extends Controller
         $priorities = Priority::all();
         $groups = Group::all();
         $responsibles = Responsible::all();
+        $status = Status::all();
 
-        return view('tasks.create', compact('priorities', 'groups', 'responsibles'));
+        return view('tasks.create', compact('priorities', 'groups', 'responsibles', 'status'));
     }
 
     /**
@@ -52,13 +77,9 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         if ($request->hasFile('tumb_file') && $request->file('tumb_file')->isValid()) {
-
             $name_image = uniqid(date('HisYmd'));
-     
             $extension = $request->tumb_file->extension();
-     
             $name_file = "{$name_image}.{$extension}";
-     
             $upload = $request->tumb_file->storeAs('tasks', $name_file);
 
             if ( !$upload )

@@ -17,6 +17,7 @@ class Task extends Model
         'group_id',
         'priority_id',
         'responsible_id',
+        'status_id',
         'filed',
     ];
 
@@ -33,5 +34,10 @@ class Task extends Model
     public function responsible()
     {
         return $this->belongsTo(Responsible::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

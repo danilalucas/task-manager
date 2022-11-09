@@ -18,17 +18,17 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form action="enhanced-results.html">
+            <form method="get" action="{{ route('task.index'); }}">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Grupo:</label>
-                                    <select class="form-control" style="width: 100%;">
-                                        <option value="" @if(!old('group_id')) selected @endif >selecione o grupo</option>
+                                    <select class="form-control" style="width: 100%;" name="group_id">
+                                        <option value="">selecione o grupo</option>
                                         @foreach($groups as $group)
-                                            <option value="{{ $group->id }}" @if(old('group_id') == $group->id) selected @endif >{{ $group->name }}</option>
+                                            <option value="{{ $group->id }}" @if(($search['group_id'] ?? '') == $group->id) selected @endif >{{ $group->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -36,10 +36,10 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Respónsavel:</label>
-                                    <select class="form-control" style="width: 100%;">
-                                        <option value="" @if(!old('responsible_id')) selected @endif >selecione o responsável</option>
+                                    <select class="form-control" style="width: 100%;" name="responsible_id">
+                                        <option value="">selecione o responsável</option>
                                         @foreach($responsibles as $responsible)
-                                            <option value="{{ $responsible->id }}" @if(old('responsible_id') == $responsible->id) selected @endif >{{ $responsible->name }}</option>
+                                            <option value="{{ $responsible->id }}" @if(($search['responsible_id'] ?? '') == $responsible->id) selected @endif >{{ $responsible->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,10 +47,10 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Prioridade:</label>
-                                    <select class="form-control" style="width: 100%;">
-                                        <option value="" @if(!old('responsible_id')) selected @endif >selecione a prioridade</option>
+                                    <select class="form-control" style="width: 100%;" name="priority_id">
+                                        <option value="">selecione a prioridade</option>
                                         @foreach($priorities as $priority)
-                                            <option value="{{ $priority->id }}" @if(old('priority_id') == $priority->id) selected @endif >{{ $priority->name }}</option>
+                                            <option value="{{ $priority->id }}" @if(($search['priority_id'] ?? '') == $priority->id) selected @endif >{{ $priority->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -58,9 +58,11 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Status:</label>
-                                    <select class="form-control" style="width: 100%;">
-                                        <option selected>Title</option>
-                                        <option>Date</option>
+                                    <select class="form-control" style="width: 100%;" name="status_id">
+                                        <option value="">selecione o status</option>
+                                        @foreach($status as $status_option)
+                                            <option value="{{ $status_option->id }}" @if(($search['status_id'] ?? '') == $status_option->id) selected @endif >{{ $status_option->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -69,7 +71,8 @@
                             <div class="col-10">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="search" class="form-control" placeholder="digite o título">
+                                        <input type="search" class="form-control" name="title" 
+                                               placeholder="digite o título" value="{{ $search['title'] ?? '' }}">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fa fa-search"></i>
@@ -80,7 +83,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                <div class="input-group justify-content-center">
+                                <div class="input-group justify-content-center" style="min-width: 138px">
                                     <a class="btn btn-primary" href="{{ route('task.create'); }}">
                                         <i class="fas fa-plus"></i>
                                         Adicionar task
@@ -138,20 +141,20 @@
                                     </a>
                                     <br/>
                                     <small>
-                                        {{ mb_strimwidth($task->description, 0, 100, "..."); }}
+                                        {{ mb_strimwidth($task?->description, 0, 100, "..."); }}
                                     </small>
                                 </td>
                                 <td>
-                                    {{ $task->group->name; }}
+                                    {{ $task->group?->name; }}
                                 </td>
                                 <td>
-                                    {{ $task->responsible->name; }}
+                                    {{ $task->responsible?->name; }}
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge" style="background-color: {{ $task->priority->color }}">{{ $task->priority->name }}</span>
+                                    <span class="badge" style="background-color: {{ $task->priority?->color }}">{{ $task->priority?->name }}</span>
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
+                                    <span class="badge" style="background-color: {{ $task->status->color }}">{{ $task->status->name }}</span>
                                 </td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="#">
