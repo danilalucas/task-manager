@@ -24,7 +24,8 @@ class StoreTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:120',
+            'title'     => 'required|max:120',
+            'status_id' => 'required',
         ];
     }
 
@@ -36,8 +37,9 @@ class StoreTaskRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'O campo título é obrigatório',
-            'title.max' =>  'Excedido quantidade máxima de caracteres no campo título',
+            'title.required'     => 'O campo título é obrigatório',
+            'title.max'          =>  'Excedido quantidade máxima de caracteres no campo título',
+            'status_id.required' => 'O campo status é obrigatório',
         ];
     }
 }
