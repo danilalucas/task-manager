@@ -98,6 +98,24 @@
         </div>
     </section>
 
+    @if (session('success'))
+        <div class="col-sm-12">
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ session('error') }}
+            </div>
+        </div>
+    @endif
+
     <section class="content">
         <div class="card card-outline card-secondary">
             <div class="card-header">
@@ -167,7 +185,7 @@
                                         </i>
                                         Editar
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal{{ $task->id; }}">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
@@ -177,6 +195,31 @@
                         @endforeach
                     </tbody>
                 </table>
+                @foreach ($tasks as $task)
+                    <div class="modal fade" id="modal{{ $task->id; }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Tem certeza que deseja deletar a task?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Task: {{ $task->id . ' - ' . $task->title; }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Não</button>
+                                    <form action="{{ route('task.delete', ['id' => $task->id]); }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
