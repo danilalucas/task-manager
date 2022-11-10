@@ -23,4 +23,5 @@ Route::prefix('task')->controller(TaskController::class)
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
+        Route::delete('/delete/{id}', 'destroy')->name('delete');
     });

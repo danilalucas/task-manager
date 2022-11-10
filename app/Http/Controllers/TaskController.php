@@ -148,6 +148,19 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $task = Task::findOrFail($id);
+            $task->delete();
+
+            return redirect()
+                    ->back()
+                    ->with('success', 'Task deletada com sucesso!');
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+
+            return redirect()
+                    ->back()
+                    ->with('error', 'Erro ao deletar a task!');
+        }
     }
 }
