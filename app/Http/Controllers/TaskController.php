@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -125,7 +126,13 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $priorities = Priority::all();
+        $groups = Group::all();
+        $responsibles = Responsible::all();
+        $status = Status::all();
+        $task = Task::find($id);
+
+        return view('tasks.edit', compact('priorities', 'groups', 'responsibles', 'status', 'task'));
     }
 
     /**
@@ -135,9 +142,52 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTaskRequest $request, $id)
     {
-        //
+        if ($request->hasFile('tumb_file') && $request->file('tumb_file')->isValid()) {
+            $name_image = uniqid(date('HisYmd'));
+            $extension = $request->tumb_file->extension();
+            $name_file = "{$name_image}.{$extension}";
+            $upload = $request->tumb_file->storeAs('tasks', $name_file);
+
+            if ( !$upload )
+                return redirect()
+                            ->back()
+                            ->with('error', 'Falha ao fazer upload')
+                            ->withInput();
+
+            $request->merge(['tumb' => $name_file]);
+        }
+
+        try{
+            $task = Task::findOrFail($id);
+            $old_tumb = $task->tumb;
+
+            $task->title = $request->title;
+            $task->description = $request->description;
+            $task->tumb = $request->tumb ?? $task->tumb;
+            $task->deadline = $request->deadline;
+            $task->group_id = $request->group_id;
+            $task->priority_id = $request->priority_id;
+            $task->responsible_id = $request->responsible_id;
+            $task->status_id = $request->status_id;
+            
+            $task->save();
+
+            if ($request->tumb ?? '' && Storage::exists('tasks/' . $old_tumb)) {
+                Storage::delete('tasks/' . $old_tumb);
+            }
+
+            return redirect()
+                    ->back()
+                    ->with('success', 'Task atualizada com sucesso!');
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+
+            return redirect()
+                    ->back()
+                    ->with('error', 'Erro ao editar a task!');
+        }
     }
 
     /**

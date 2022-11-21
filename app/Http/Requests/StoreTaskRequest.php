@@ -38,7 +38,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'title.required'     => 'O campo título é obrigatório',
-            'title.max'          =>  'Excedido quantidade máxima de caracteres no campo título',
+            'title.max'          => 'Excedido quantidade máxima de caracteres no campo título',
             'status_id.required' => 'O campo status é obrigatório',
         ];
     }

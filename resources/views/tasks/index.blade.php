@@ -180,7 +180,7 @@
                                         </i>
                                         Ver
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="#">
+                                    <a class="btn btn-info btn-sm" href="{{ route('task.edit', ['id' => $task->id]); }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Editar
