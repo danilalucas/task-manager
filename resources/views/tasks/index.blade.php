@@ -44,7 +44,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label>Prioridade:</label>
                                     <select class="form-control" style="width: 100%;" name="priority_id">
@@ -55,7 +55,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label>Status:</label>
                                     <select class="form-control" style="width: 100%;" name="status_id">
@@ -63,6 +63,15 @@
                                         @foreach($status as $status_option)
                                             <option value="{{ $status_option->id }}" @if(($search['status_id'] ?? '') == $status_option->id) selected @endif >{{ $status_option->name }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Arquivados:</label>
+                                    <select class="form-control" style="width: 100%;" name="filed">
+                                        <option value=1 @if(($search['filed'] ?? '') == true) selected @endif >Sim</option>
+                                        <option value=0 @if(($search['filed'] ?? '') == false) selected @endif >Não</option>
                                     </select>
                                 </div>
                             </div>
@@ -175,7 +184,7 @@
                                     <span class="badge" style="background-color: {{ $task->status->color }}">{{ $task->status->name }}</span>
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('task.view', ['id' => $task->id]); }}">
                                         <i class="fas fa-folder">
                                         </i>
                                         Ver

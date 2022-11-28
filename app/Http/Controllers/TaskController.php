@@ -31,12 +31,12 @@ class TaskController extends Controller
         $search = $request->all();
 
         if(empty($search)) {
-            $tasks = Task::paginate();
+            $tasks = Task::where('filed', '=', false)->paginate();
         }else {
             $query = Task::query();
-            $terms = $request->only('group_id', 'responsible_id', 'priority_id', 'status_id');
+            $terms = $request->only('group_id', 'responsible_id', 'priority_id', 'status_id', 'filed');
             foreach ($terms as $name => $value) {
-                if ($value) { 
+                if ($value or $value === '0') {
                     $query->where($name, '=', $value);
                 }
             }
@@ -115,7 +115,18 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $task = Task::findOrFail($id);
+
+            return view('tasks.view', compact('task'));
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+
+            return redirect()
+                    ->back()
+                    ->with('error', 'Task não encontrada!');
+        }
+        
     }
 
     /**
@@ -203,7 +214,7 @@ class TaskController extends Controller
             $task->delete();
 
             return redirect()
-                    ->back()
+                    ->route('task.index')
                     ->with('success', 'Task deletada com sucesso!');
         }catch (Exception $e){
             Log::error($e->getMessage());
@@ -211,6 +222,27 @@ class TaskController extends Controller
             return redirect()
                     ->back()
                     ->with('error', 'Erro ao deletar a task!');
+        }
+    }
+
+    public function filedOrUnfiled($id)
+    {
+        try{
+            $task = Task::findOrFail($id);
+            $task->filed = !$task->filed;
+            $task->save();
+
+            $message = ($task->filed) ? 'Task arquivada com sucesso!' : 'Task desarquivada com sucesso!';
+
+            return redirect()
+                    ->route('task.index')
+                    ->with('success', $message);
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+
+            return redirect()
+                    ->back()
+                    ->with('error', 'Erro ao atualizar a task!');
         }
     }
 }
