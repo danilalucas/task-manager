@@ -58,7 +58,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Prioridade</span>
-                                <span class="info-box-number text-center text-muted mb-0">{{ $task->priority->name ?? '--'; }}</span>
+                                <span class="info-box-number text-center mb-0 rounded-pill {{ $task->priority?->color }}">{{ $task->priority->name ?? '--'; }}</span>
                               </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Status:</span>
-                                <span class="info-box-number text-center text-muted mb-0">{{ $task->status->name ?? '--'; }}</span>
+                                <span class="info-box-number text-center mb-0 rounded-pill {{ $task->status?->color }}">{{ $task->status->name ?? '--'; }}</span>
                               </div>
                             </div>
                         </div>
