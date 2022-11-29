@@ -64,9 +64,9 @@ return [
     */
 
     'logo' => '',
-    'logo_img' => url('/images/icon_logo_task.png'),
+    'logo_img' => '/images/icon_logo_task.png',
     'logo_img_class' => 'elevation-3',
-    'logo_img_xl' => url('/images/logo_task.png'),
+    'logo_img_xl' => '/images/logo_task.png',
     'logo_img_xl_class' => 'pl-3',
     'logo_img_alt' => 'Logo Task',
 
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => url('/images/auth_logo_task.png'),
+            'path' => '/images/auth_logo_task.png',
             'alt' => 'Auth Logo Task',
             'class' => '',
             'width' => 223,
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => url('/images/icon_logo_task.png'),
+            'path' => '/images/icon_logo_task.png',
             'alt' => 'Task Manager Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,

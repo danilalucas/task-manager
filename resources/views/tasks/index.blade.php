@@ -178,10 +178,10 @@
                                     {{ $task->responsible?->name; }}
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge" style="background-color: {{ $task->priority?->color }}">{{ $task->priority?->name }}</span>
+                                    <span class="badge {{ $task->priority?->color }}">{{ $task->priority?->name }}</span>
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge" style="background-color: {{ $task->status->color }}">{{ $task->status->name }}</span>
+                                    <span class="badge {{ $task->status?->color }}">{{ $task->status->name }}</span>
                                 </td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="{{ route('task.view', ['id' => $task->id]); }}">
