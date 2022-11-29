@@ -1,66 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h2 align="center">
+	☑️ Task Manager
+</h2>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+ <a href="#-sobre-o-projeto">Sobre</a> •
+ <a href="#-layout">Layout</a> • 
+ <a href="#-como-executar-o-projeto">Como executar</a> • 
+ <a href="#-tecnologias">Tecnologias</a> •  
+ <a href="#-autor">Autor</a>
 </p>
 
-## About Laravel
+## 💻 Sobre o projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Task manager é ideal para gerenciamento de tarefas visando atingir um objetivo ou meta. Suas principais funcionalidades são: listar as atividades, delegá-las corretamente, priorizá-las e controlar sua execução.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🎨 Layout
 
-## Learning Laravel
+O layout foi elaborado com base o AdminLTE juntamente com o Bootstrap.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<a href="https://adminlte.io/">
+  <img src="https://img.shields.io/badge/Acessar-AdminLTE-%2304D361">
+</a>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="Listagem" title="#layout" src="./storage/screenshots/index.png" width="600px">
+</p>
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="Ver" title="#layout" src="./storage/screenshots/view.png" width="600px">
+</p>
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="Editar" title="#layout" src="./storage/screenshots/edit.png" width="600px">
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<h4 align="center"> 
+	✔️ Task Manager ✔️
+</h4>
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 📌 Como executar o projeto
 
-### Premium Partners
+### Pré-requisitos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Laragon](https://laragon.org/) com nginx, mysql e php 8. Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 🧭 Baixando o projeto
 
-## Code of Conduct
+```bash
+# Clone este repositório
+$ git clone git@github.com:danilalucas/task-manager.git
+```
+#### 🧭 Configurando o projeto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# Acessar diretório
+$ cd task-manager
+# Instalar pacotes
+$ composer install --dev
+# Copiar env
+$ cp .env.example .env
+# No VSCode acessar .env e configurar conexão do banco
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=laravel
+  DB_USERNAME=root
+  DB_PASSWORD=
+# Para rodar o projeto local execute o comando
+$ npm run dev
+# Acesse o projeto via navegador usando a url disponibilizada pelo laragon
+```
+---
 
-## Security Vulnerabilities
+## 🛠 Tecnologias
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-## License
+-   **[PHP](https://www.php.net/)**
+-   **[Laravel](https://laravel.com/)**
+-   **[AdminLTE](https://adminlte.io/)**
+-   **[Bootstrap](https://getbootstrap.com/)**
+-   **[Laragon](https://laragon.org/)**
+-   **[MySQL](https://www.mysql.com/)**
+-   **[Nginx](https://www.nginx.com/)**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 👩‍💻 Autor
+
+<a href="https://github.com/danilalucas">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/80535640?v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Daníla Lucas</b></sub></a> <a href="https://github.com/danilalucas" title="Profile"></a>
+ <br />
+
+[![Linkedin Badge](https://img.shields.io/badge/-Danila%20Lucas-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/dan%C3%ADla-lucas/)](https://www.linkedin.com/in/dan%C3%ADla-lucas/) 
+[![Gmail Badge](https://img.shields.io/badge/-danilatemoteolucas@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:danilatemoteolucas@gmail.com)](mailto:danilatemoteolucas@gmail.com)
+
+
+Feito com ❤️ por Daníla Lucas 👋🏽 [Entre em contato!](https://www.linkedin.com/in/dan%C3%ADla-lucas/)
+
+---
