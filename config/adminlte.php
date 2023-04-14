@@ -313,6 +313,23 @@ return [
                 ],
             ],
         ],
+
+        [
+            'text'    => 'Perfil',
+            'icon'    => 'fas fa-user',
+            'submenu' => [
+                [
+                    'text'   => 'Meus dados',
+                    'icon'   => 'fas fa-id-card',
+                    'route'  => 'profile.edit',
+                ],
+                [
+                    'text'    => 'Alterar senha',
+                    'icon'    => 'fas fa-lock',
+                    'route'   => 'profile.password.edit',
+                ],
+            ],
+        ],
     ],
 
     /*
