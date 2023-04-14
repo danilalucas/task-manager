@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use GuzzleHttp\Promise\TaskQueue;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,13 @@ use App\Http\Controllers\TaskController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->get('/', [TaskController::class, 'index'])->name('home');
 
-Route::prefix('task')->controller(TaskController::class)
-    ->name('task.')->group(function () {
+Route::middleware('auth')
+       ->prefix('task')
+       ->controller(TaskController::class)
+       ->name('task.')
+       ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
@@ -28,4 +32,4 @@ Route::prefix('task')->controller(TaskController::class)
         Route::post('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('delete');
         Route::put('/filedOrUnfiled/{id}', 'filedOrUnfiled')->name('filedOrUnfiled');
-    });
+       });
