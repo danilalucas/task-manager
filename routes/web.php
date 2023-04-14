@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordController;
 use GuzzleHttp\Promise\TaskQueue;
 
 /*
@@ -32,4 +34,20 @@ Route::middleware('auth')
         Route::post('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('delete');
         Route::put('/filedOrUnfiled/{id}', 'filedOrUnfiled')->name('filedOrUnfiled');
+       });
+
+Route::middleware('auth')
+       ->prefix('profile')
+       ->controller(ProfileController::class)
+       ->name('profile.')
+       ->group(function () {
+        Route::get('/', 'edit')->name('edit');
+        Route::patch('/update', 'update')->name('update');
+        Route::prefix('password')
+               ->controller(PasswordController::class)
+               ->name('password.')
+               ->group(function () {
+               Route::get('/', 'edit')->name('edit');
+               Route::patch('/update', 'update')->name('update');
+               });
        });
