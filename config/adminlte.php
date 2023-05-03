@@ -330,6 +330,23 @@ return [
                 ],
             ],
         ],
+
+        [
+            'text'    => 'Usuários',
+            'icon'    => 'fas fa-users-cog',
+            'submenu' => [
+                [
+                    'text'   => 'Listar',
+                    'icon'   => 'fas fa-eye',
+                    'route'  => 'user.index',
+                ],
+                [
+                    'text'    => 'Adicionar',
+                    'icon'    => 'far fa-plus-square',
+                    'route'   => 'user.create',
+                ],
+            ],
+        ],
     ],
 
     /*

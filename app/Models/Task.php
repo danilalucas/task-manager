@@ -20,7 +20,7 @@ class Task extends Model
         'deadline',
         'group_id',
         'priority_id',
-        'responsible_id',
+        'user_id',
         'status_id',
         'filed',
     ];
@@ -35,9 +35,9 @@ class Task extends Model
         return $this->belongsTo(Priority::class);
     }
 
-    public function responsible()
+    public function user()
     {
-        return $this->belongsTo(Responsible::class);
+        return $this->belongsTo(User::class);
     }
 
     public function status()

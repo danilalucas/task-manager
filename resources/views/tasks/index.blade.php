@@ -36,10 +36,10 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Respónsavel:</label>
-                                    <select class="form-control" style="width: 100%;" name="responsible_id">
+                                    <select class="form-control" style="width: 100%;" name="user_id">
                                         <option value="">selecione o responsável</option>
-                                        @foreach($responsibles as $responsible)
-                                            <option value="{{ $responsible->id }}" @if(($search['responsible_id'] ?? '') == $responsible->id) selected @endif >{{ $responsible->name }}</option>
+                                        @foreach($users as $users)
+                                            <option value="{{ $users->id }}" @if(($search['users_id'] ?? '') == $users->id) selected @endif >{{ $users->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -175,7 +175,7 @@
                                     {{ $task->group?->name; }}
                                 </td>
                                 <td>
-                                    {{ $task->responsible?->name; }}
+                                    {{ $task->user?->name; }}
                                 </td>
                                 <td class="project-state">
                                     <span class="badge {{ $task->priority?->color }}">{{ $task->priority?->name }}</span>
