@@ -67,12 +67,12 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="responsible_id" class="form-label">Responsável</label>
-                        <select class="form-control" name="responsible_id">
-                            @php($responsible_value = old('responsible_id') ?? $task->responsible_id)
-                            <option value="" @if(!$responsible_value) selected @endif >Selecione o responsável</option>
-                            @foreach($responsibles as $responsible)
-                                <option value="{{ $responsible->id }}" @if($responsible_value == $responsible->id) selected @endif >{{ $responsible->name }}</option>
+                        <label for="user_id" class="form-label">Responsável</label>
+                        <select class="form-control" name="user_id">
+                            @php($user_value = old('user_id') ?? $task->user_id)
+                            <option value="" @if(!$user_value) selected @endif >Selecione o responsável</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}" @if($user_value == $user->id) selected @endif >{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>

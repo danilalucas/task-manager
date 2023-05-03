@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Group;
 use App\Models\Priority;
-use App\Models\Responsible;
+use App\Models\User;
 use App\Models\Status;
 use App\Models\Task;
 use Exception;
@@ -25,7 +25,7 @@ class TaskController extends Controller
     {
         $priorities = Priority::all();
         $groups = Group::all();
-        $responsibles = Responsible::all();
+        $users = User::all();
         $status = Status::all();
 
         $search = $request->all();
@@ -51,7 +51,7 @@ class TaskController extends Controller
             $tasks = $query->paginate();
         }
         
-        return view('tasks.index', compact('tasks', 'priorities', 'groups', 'responsibles', 'status', 'search'));
+        return view('tasks.index', compact('tasks', 'priorities', 'groups', 'users', 'status', 'search'));
     }
 
     /**
@@ -63,10 +63,10 @@ class TaskController extends Controller
     {
         $priorities = Priority::all();
         $groups = Group::all();
-        $responsibles = Responsible::all();
+        $users = User::all();
         $status = Status::all();
 
-        return view('tasks.create', compact('priorities', 'groups', 'responsibles', 'status'));
+        return view('tasks.create', compact('priorities', 'groups', 'users', 'status'));
     }
 
     /**
@@ -139,11 +139,11 @@ class TaskController extends Controller
     {
         $priorities = Priority::all();
         $groups = Group::all();
-        $responsibles = Responsible::all();
+        $users = User::all();
         $status = Status::all();
         $task = Task::find($id);
 
-        return view('tasks.edit', compact('priorities', 'groups', 'responsibles', 'status', 'task'));
+        return view('tasks.edit', compact('priorities', 'groups', 'users', 'status', 'task'));
     }
 
     /**
@@ -180,7 +180,7 @@ class TaskController extends Controller
             $task->deadline = $request->deadline;
             $task->group_id = $request->group_id;
             $task->priority_id = $request->priority_id;
-            $task->responsible_id = $request->responsible_id;
+            $task->user_id = $request->user_id;
             $task->status_id = $request->status_id;
             
             $task->save();

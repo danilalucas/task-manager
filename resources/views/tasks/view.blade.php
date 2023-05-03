@@ -29,7 +29,7 @@
                     <p>{{ $task->description; }}</p>
                     <br>
                     <div class="text-muted">
-                        <p>Responsável <b class="d-block">{{ $task->responsible->name ?? '--'; }}</b></p>
+                        <p>Responsável <b class="d-block">{{ $task->user->name ?? '--'; }}</b></p>
                     </div>
                     <h5 class="mt-5 text-muted">Thumbnail</h5>
                     @if( $task->tumb )

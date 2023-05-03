@@ -66,11 +66,11 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="responsible_id" class="form-label">Responsável</label>
-                        <select class="form-control" name="responsible_id">
-                            <option value="" @if(!old('responsible_id')) selected @endif >Selecione o responsável</option>
-                            @foreach($responsibles as $responsible)
-                                <option value="{{ $responsible->id }}" @if(old('responsible_id') == $responsible->id) selected @endif >{{ $responsible->name }}</option>
+                        <label for="user_id" class="form-label">Responsável</label>
+                        <select class="form-control" name="user_id">
+                            <option value="" @if(!old('user_id')) selected @endif >Selecione o responsável</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}" @if(old('user_id') == $user->id) selected @endif >{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
