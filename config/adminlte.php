@@ -334,6 +334,7 @@ return [
         [
             'text'    => 'Usuários',
             'icon'    => 'fas fa-users-cog',
+            'can'     => 'Manager Users',
             'submenu' => [
                 [
                     'text'   => 'Listar',
