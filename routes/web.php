@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
               Route::get('/view/{id}', 'show')->name('view');
               Route::get('/edit/{id}', 'edit')->name('edit');
               Route::post('/update/{id}', 'update')->name('update');
-              Route::delete('/delete/{id}', 'destroy')->name('delete');
+              Route::middleware('permission:Delete Task')->delete('/delete/{id}', 'destroy')->name('delete');
               Route::put('/filedOrUnfiled/{id}', 'filedOrUnfiled')->name('filedOrUnfiled');
        });
 
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
               });
        });
 
-       Route::prefix('user')->controller(RegisterController::class)->name('user.')->group(function () {
+       Route::middleware('permission:Manager Users')->prefix('user')->controller(RegisterController::class)->name('user.')->group(function () {
               Route::get('/', 'index')->name('index');
               Route::get('/create', 'create')->name('create');
               Route::post('/store', 'store')->name('store');
