@@ -41,10 +41,10 @@
                 </div>
             @endif
 
-            <form method="post" action="{{ route('task.update', ['id' => $task->id]); }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('task.update', ['id' => $task->id]); }}" enctype="multipart/form-data" id="task_update">
                 @csrf
                 <div class="mb-3">
-                    <label for="title" class="form-label">Título *</label>
+                    <label for="title" class="form-label">Título*</label>
                     <input type="text" class="@error('title') is-invalid @enderror form-control"
                         id="title" name="title" max="120" value="{{ old('title') ?? $task->title }}">
                     @error('title')
@@ -93,7 +93,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="status_id" class="form-label">Status *</label>
+                        <label for="status_id" class="form-label">Status*</label>
                         <select class="form-control" name="status_id">
                             @php($status_value = old('status_id') ?? $task->status_id)
                             <option value="" @if(!$status_value) selected @endif >Selecione o status</option>
@@ -108,12 +108,67 @@
                 </div>
                 <div class="mb-3">
                     <label for="tumb_file" class="form-label">Imagem destaque</label>
-                    <input class="" type="file" id="tumb_file" name="tumb_file">
+                    <input class="" type="file" id="tumb_file" name="tumb_file" onchange="previewImagem(event)">
+                </div>
+                <div class="col-2 small-box" data-toggle="modal" data-target="#modalTumb{{ $task->id; }}"
+                     id="card_image" @if(!$task->tumb) style="display: none;" @endif>
+                    <img id="preview" class="card-img-top" 
+                         src="@if($task->tumb) {{ url("tumb_task/{$task->tumb}") }} @endif" alt="Image task">
+                    <div class="d-flex flex-column justify-content-end align-items-end small-box-footer bg-white">
+                        <i class="p-1 text-gray fas fa-expand"></i>
+                    </div>
+                </div>
+                <input id="remove_tumb" style="display: none;" name="remove_tumb" value="false">
+                <button type="button" class="btn btn-light btn-sm" onclick="removeImage()" @if(!$task->tumb) style="display: none;" @endif id="remove_image">
+                    Remover imagem
+                </button>
+            </form>
+        </div>    
+        <div class="col-12 card-footer">
+            <button type="submit" class="btn btn-primary" form="task_update">Atualizar</button>
+        </div>
+        
+        <div class="modal fade" id="modalTumb{{ $task->id; }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <img id="preview_thumbnail" class="img-thumbnail" src="@if($task->tumb) {{ url("tumb_task/{$task->tumb}") }} @endif" alt="Image task">
+                    </div>
                 </div>
             </div>
-            <div class="col-12 card-footer">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <script>
+        function previewImagem(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview');
+                var preview_thumbnail = document.getElementById('preview_thumbnail');
+                var card_image = document.getElementById('card_image');
+                var remove_image = document.getElementById('remove_image');
+                var remove_tumb = document.getElementById('remove_tumb');
+                remove_tumb.value = 'false';
+                card_image.style.display = 'block';
+                remove_image.style.display = 'block';
+                preview.src = reader.result;
+                preview_thumbnail.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function removeImage(){
+            var tumb_file = document.getElementById('tumb_file');
+            var card_image = document.getElementById('card_image');
+            var remove_image = document.getElementById('remove_image');
+            var remove_tumb = document.getElementById('remove_tumb');
+            remove_tumb.value = 'true';
+            tumb_file.value = '';
+            card_image.style.display = 'none';
+            remove_image.style.display = 'none';
+        }
+    </script>
 @endsection

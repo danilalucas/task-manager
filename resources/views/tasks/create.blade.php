@@ -41,10 +41,10 @@
                 </div>
             @endif
 
-            <form method="post" action="{{ route('task.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('task.store') }}" enctype="multipart/form-data" id="task_store">
                 @csrf
                 <div class="mb-3">
-                    <label for="title" class="form-label">Título *</label>
+                    <label for="title" class="form-label">Título*</label>
                     <input type="text" class="@error('title') is-invalid @enderror form-control"
                         id="title" name="title" max="120" value="{{ old('title') }}">
                     @error('title')
@@ -90,7 +90,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="status_id" class="form-label">Status *</label>
+                        <label for="status_id" class="form-label">Status*</label>
                         <select class="form-control" name="status_id">
                             <option value="" @if(!old('status_id')) selected @endif >Selecione o status</option>
                             @foreach($status as $status_option)
@@ -104,12 +104,58 @@
                 </div>
                 <div class="mb-3">
                     <label for="tumb_file" class="form-label">Imagem destaque</label>
-                    <input class="" type="file" id="tumb_file" name="tumb_file">
+                    <input class="" type="file" id="tumb_file" name="tumb_file" onchange="previewImagem(event)">
+                </div>
+                <div class="col-2 small-box" data-toggle="modal" data-target="#modalTumb" id="card_image" style="display: none;">
+                    <img id="preview" class="card-img-top" src="#" alt="Image task">
+                    <div class="d-flex flex-column justify-content-end align-items-end small-box-footer bg-white">
+                        <i class="p-1 text-gray fas fa-expand"></i>
+                    </div> 
+                </div>
+                <button type="button" class="btn btn-light btn-sm" onclick="removeImage()" style="display: none;" id="remove_image">Remover imagem</button>
+            </form>
+        </div>
+        <div class="col-12 card-footer">
+            <button type="submit" class="btn btn-primary" form="task_store">Criar task</button>
+        </div>
+
+        <div class="modal fade" id="modalTumb" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <img id="preview_thumbnail" class="img-thumbnail" src="#" alt="Image task">
+                    </div>
                 </div>
             </div>
-            <div class="col-12 card-footer">
-                <button type="submit" class="btn btn-primary">Criar task</button>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <script>
+        function previewImagem(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview');
+                var preview_thumbnail = document.getElementById('preview_thumbnail');
+                var card_image = document.getElementById('card_image');
+                var remove_image = document.getElementById('remove_image');
+                card_image.style.display = 'block';
+                remove_image.style.display = 'block';
+                preview.src = reader.result;
+                preview_thumbnail.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function removeImage(){
+            var tumb_file = document.getElementById('tumb_file');
+            var card_image = document.getElementById('card_image');
+            var remove_image = document.getElementById('remove_image');
+            tumb_file.value = '';
+            card_image.style.display = 'none';
+            remove_image.style.display = 'none';
+        }
+    </script>
 @endsection

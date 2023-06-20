@@ -174,9 +174,15 @@ class TaskController extends Controller
             $task = Task::findOrFail($id);
             $old_tumb = $task->tumb;
 
+            if ($request->remove_tumb == 'true' && Storage::exists('tasks/' . $old_tumb)) {
+                Storage::delete('tasks/' . $old_tumb);
+                $task->tumb = null;
+            }else {
+                $task->tumb = $request->tumb ?? $task->tumb;
+            }
+
             $task->title = $request->title;
             $task->description = $request->description;
-            $task->tumb = $request->tumb ?? $task->tumb;
             $task->deadline = $request->deadline;
             $task->group_id = $request->group_id;
             $task->priority_id = $request->priority_id;
