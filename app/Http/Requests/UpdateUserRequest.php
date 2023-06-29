@@ -44,6 +44,7 @@ class UpdateUserRequest extends FormRequest
             'name.max'           => 'Excedeu o limite de 255 caracteres',
             'name.unique'        => 'Nome de usuario já existe',
             'email.required'     => 'O campo email é obrigatório',
+            'email.unique'        => 'Email do usuario já existe',
             'email.max'          => 'Excedeu o limite de 255 caracteres',
             'email.email'        => 'O email informado não é válido',
             'password.required'  => 'O campo nova senha é obrigatório',
