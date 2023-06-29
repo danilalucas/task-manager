@@ -93,10 +93,10 @@ class TaskController extends Controller
         }
 
         try{
-            Task::create($request->all());
+            $task = Task::create($request->all());
 
             return redirect()
-                    ->back()
+                    ->route('task.view', $task->id)
                     ->with('success', 'Nova task criada com sucesso!');
         }catch (Exception $e){
             Log::error($e->getMessage());
@@ -196,7 +196,7 @@ class TaskController extends Controller
             }
 
             return redirect()
-                    ->back()
+                    ->route('task.view', $task->id)
                     ->with('success', 'Task atualizada com sucesso!');
         }catch (Exception $e){
             Log::error($e->getMessage());

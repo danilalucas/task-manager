@@ -23,15 +23,6 @@
         </div>
         <div class="card-body">
 
-            @if (session('success'))
-                <div class="col-sm-12">
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        {{ session('success') }}
-                    </div>
-                </div>
-            @endif
-
             @if (session('error'))
                 <div class="col-sm-12">
                     <div class="alert alert-danger alert-dismissible">
@@ -43,80 +34,12 @@
 
             <form method="post" action="{{ route('task.store') }}" enctype="multipart/form-data" id="task_store">
                 @csrf
-                <div class="mb-3">
-                    <label for="title" class="form-label">Título*</label>
-                    <input type="text" class="@error('title') is-invalid @enderror form-control"
-                        id="title" name="title" max="120" value="{{ old('title') }}">
-                    @error('title')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col">
-                        <label for="group_id" class="form-label">Grupo</label>
-                        <select class="form-control" name="group_id">
-                            <option value="" @if(!old('group_id')) selected @endif >Selecione o grupo</option>
-                            @foreach($groups as $group)
-                                <option value="{{ $group->id }}" @if(old('group_id') == $group->id) selected @endif >{{ $group->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="user_id" class="form-label">Responsável</label>
-                        <select class="form-control" name="user_id">
-                            <option value="" @if(!old('user_id')) selected @endif >Selecione o responsável</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}" @if(old('user_id') == $user->id) selected @endif >{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col">
-                        <label for="daedline" class="form-label">Data de Finalização</label>
-                        <input type="date" class="form-control" id="deadline" name="deadline" value="{{ old('deadline') }}">
-                    </div>
-                    <div class="col">
-                        <label for="priority_id" class="form-label">Prioridade</label>
-                        <select class="form-control" name="priority_id">
-                            <option value="" @if(!old('priority_id')) selected @endif >Selecione a prioridade</option>
-                            @foreach($priorities as $priority)
-                                <option value="{{ $priority->id }}" @if(old('priority_id') == $priority->id) selected @endif >{{ $priority->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="status_id" class="form-label">Status*</label>
-                        <select class="form-control" name="status_id">
-                            <option value="" @if(!old('status_id')) selected @endif >Selecione o status</option>
-                            @foreach($status as $status_option)
-                                <option value="{{ $status_option->id }}" @if(old('status_id') == $status_option->id) selected @endif >{{ $status_option->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('status_id')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="tumb_file" class="form-label">Imagem destaque</label>
-                    <input class="" type="file" id="tumb_file" name="tumb_file" onchange="previewImagem(event)">
-                </div>
-                <div class="col-2 small-box" data-toggle="modal" data-target="#modalTumb" id="card_image" style="display: none;">
-                    <img id="preview" class="card-img-top" src="#" alt="Image task">
-                    <div class="d-flex flex-column justify-content-end align-items-end small-box-footer bg-white">
-                        <i class="p-1 text-gray fas fa-expand"></i>
-                    </div> 
-                </div>
-                <button type="button" class="btn btn-light btn-sm" onclick="removeImage()" style="display: none;" id="remove_image">Remover imagem</button>
+                @include('tasks._partials.form')
             </form>
         </div>
         <div class="col-12 card-footer">
             <button type="submit" class="btn btn-primary" form="task_store">Criar task</button>
+            <a href="{{ route('task.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
 
         <div class="modal fade" id="modalTumb" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -132,30 +55,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImagem(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var preview = document.getElementById('preview');
-                var preview_thumbnail = document.getElementById('preview_thumbnail');
-                var card_image = document.getElementById('card_image');
-                var remove_image = document.getElementById('remove_image');
-                card_image.style.display = 'block';
-                remove_image.style.display = 'block';
-                preview.src = reader.result;
-                preview_thumbnail.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function removeImage(){
-            var tumb_file = document.getElementById('tumb_file');
-            var card_image = document.getElementById('card_image');
-            var remove_image = document.getElementById('remove_image');
-            tumb_file.value = '';
-            card_image.style.display = 'none';
-            remove_image.style.display = 'none';
-        }
-    </script>
 @endsection

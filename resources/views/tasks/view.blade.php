@@ -23,6 +23,15 @@
         </div>
         <div class="card-body">
 
+            @if (session('success'))
+                <div class="col-sm-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
             <div class="row align-items-start">
                 <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                     <h3 class="text-primary">{{ $task->title; }}</h3>
@@ -78,22 +87,41 @@
             </div>  
         </div>
         <div class="card-footer bg-transparent">
-            <div class="row justify-content-end">
-                <div class="text-center mt-5 mb-3">
-                    <a href="{{ route('task.edit', ['id' => $task->id]); }}" class="btn btn-sm btn-info">
-                        <i class="fas fa-pencil-alt"></i>
-                        Editar
-                    </a>
-                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal{{ $task->id; }}">
-                        <i class="fas fa-trash"></i>
-                        Excluir
-                    </a>
-                    <a class="btn btn-sm btn-dark" data-toggle="modal" data-target="#modalFiled{{ $task->id; }}">
-                        <i class="fas fa-file"></i>
-                        @if($task->filed) Desarquivar @else Arquivar @endif
-                    </a>
+            <div class="row justify-content-between">
+                <div class="col-12 col-md-12 col-lg-4 order-2 order-md-1">
+                    <div class="row justify-content-start">
+                        <div class="col-12 col-sm-8">
+                            <div class="text-left mt-5 mb-3">
+                                <a href="{{ route('task.index') }}" class="btn btn-sm btn-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    Listagem das tasks
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-8 order-1 order-md-2">
+                    <div class="row justify-content-end">
+                        <div class="col-12 col-sm-12">
+                            <div class="text-right mt-5 mb-3">
+                                <a href="{{ route('task.edit', ['id' => $task->id]); }}" class="btn btn-sm btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Editar
+                                </a>
+                                <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal{{ $task->id; }}">
+                                    <i class="fas fa-trash"></i>
+                                    Excluir
+                                </a>
+                                <a class="btn btn-sm btn-dark" data-toggle="modal" data-target="#modalFiled{{ $task->id; }}">
+                                    <i class="fas fa-file"></i>
+                                    @if($task->filed) Desarquivar @else Arquivar @endif
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
